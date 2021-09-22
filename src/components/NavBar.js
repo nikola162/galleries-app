@@ -12,26 +12,24 @@ export default function NavBar() {
   }
 
   return (
-    <div>
-      <nav>
-       
-        {isAuthenticated ? (
-          <>
-            
-            <button onClick={handleLogout}>Logout</button>
-          </>
-        ) : (
-          <>
-            <li>
-              <Link to="/login">Login</Link>
-            </li>
-            <li>
-              <Link to="/register">Register</Link>
-            </li>
-          </>
-        )}
-      </nav>
-      {activeUser && <h3>Hello, {activeUser.first_name}</h3>}
-    </div>
+    <nav style={{display: 'flex', justifyContent: 'space-evenly'}}>
+      {isAuthenticated ? <h5>Welcome {activeUser && activeUser.first_name}</h5> : <h5>Welcome Guest</h5>}
+      <h5><Link to="/">All Galleries</Link></h5>
+      {!isAuthenticated && (
+      <h5 className="nav-link"><Link to="/register">Register</Link></h5>
+      )}
+      {!isAuthenticated && (
+      <h5 className="nav-link"><Link to="/login">Login</Link></h5>
+      )}
+      {isAuthenticated && (
+        <h5><Link to="/my-galleries">My Galleries</Link></h5>
+      )}
+      {isAuthenticated && (
+        <h5><Link to="/create">Create Galleries</Link></h5>
+      )}
+      {isAuthenticated && (
+        <button onClick={handleLogout}>Logout</button>
+      )}
+    </nav>
   );
 }
