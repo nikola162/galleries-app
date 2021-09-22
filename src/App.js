@@ -14,6 +14,7 @@ import AppGalleries from "./containers/AppGalleries";
 
 import Register from "./pages/Register";
 import Login from "./pages/Login";
+import ViewSingleGallery from "./containers/ViewSingleGallery";
 
 import { getActiveUser, selectIsAuthenticated } from "./store/auth";
 
@@ -41,6 +42,9 @@ function App() {
           <GuestRoute exact path="/register">
             <Register />
           </GuestRoute>
+          <PrivateRoute exact path="/galleries/:id">
+            <ViewSingleGallery />
+          </PrivateRoute>
           <Route exact path="/">
             <Redirect to="/galleries" />
           </Route>

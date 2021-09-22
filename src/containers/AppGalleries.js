@@ -18,31 +18,27 @@ export default function AppGalleries()
           const data = await GalleryService.getAll();
     
           setGalleries(data);
+          console.log(data);
         };
         fetchGalleries();
       }, []);
     return (
         <div>
-      <h2>My galleris</h2>
+      <h2>All galleris</h2>
       {galleries.map((gallery) => (
         <div
           key={gallery.id}
-          style={{
-            border: '3px solid orange',
-            width: 300,
-            marginTop: 15,
-            display: 'flex',
-            flexDirection: 'column',
-          }}
         >
           <p>
-            <strong>Title:</strong> {gallery.title}
+          <Link to={`/galleries/${gallery.id}`}><strong>{gallery.title}</strong></Link>
           </p>
           <p>
-            <strong>Text:</strong> {gallery.text}
-          </p>
-          <Link to={`/galleries/${gallery.id}`}>View post</Link>
-          <button onClick={() => history.push(`/edit/${gallery.id}`)}>Edit</button>
+            <strong>Description:</strong> {gallery.descrtiption}
+            <img
+                style={{width:"300px",height:"300px"}}
+                src={gallery.images.length ? gallery.images[0].Image_Url : ""}
+              />         
+        </p>
           
         </div>
       ))}
