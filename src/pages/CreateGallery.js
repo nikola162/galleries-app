@@ -11,6 +11,7 @@ import GalleryService from "../services/GalleryService";
 export default function CreateGallery () {
 
     const [newGallery, setNewGallery] = useState([]);
+    const [newForm, setNewForm] = useState([]);
     const history = useHistory();
     const activeUser = useSelector(selectActiveUser);
     const { id } = useParams();
@@ -44,7 +45,20 @@ export default function CreateGallery () {
           history.push('/my-galleries');
     };
     
+    const handleSubmitt = async (e) => {
+        e.preventDefault();
 
+    }
+
+        function AddnewInput (){
+
+            const newInput = (<input type="file" id="myfile" name="myfile" multiple></input>);
+
+            setNewForm([...newInput]);
+
+            return newInput;
+        }
+    
 
 
 
@@ -87,6 +101,14 @@ export default function CreateGallery () {
         <button>{id ? 'Edit' : 'Add'}</button>
         
       </form>
+      <div>
+      <form onSubmit={handleSubmitt}>
+  <input type="file" id="myfile" name="myfile" multiple></input>
+          <button onClick={AddnewInput}></button>
+
+    </form>
+      </div>
+      
         </div>
     );
 }
