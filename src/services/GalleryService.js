@@ -38,6 +38,16 @@ class GalleryService extends HttpService {
         }
     }
 
+    addNewGallery = async (newGallery) => {
+        try {
+            const { data } = await this.client.post("/create-galleries",newGallery)
+            console.log( data );
+            return data;
+        }catch (error) {
+            console.log(error);
+        }
+    }
+
     
 }
 

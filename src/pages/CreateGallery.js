@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import GalleryService from "../services/GalleryService";
 import { useState , useEffect } from "react";
 import {  selectActiveUser } from "../store/auth";
 import { useHistory, useParams } from 'react-router-dom';
+import GalleryService from "../services/GalleryService";
 
 
 
@@ -12,16 +12,38 @@ export default function CreateGallery () {
 
     const [newGallery, setNewGallery] = useState([]);
     const history = useHistory();
+    const activeUser = useSelector(selectActiveUser);
+    const { id } = useParams();
 
+
+   
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         let data = null;
+        if (!activeUser) {
+            return ;
+         }
+        console.log(activeUser);
+        setNewGallery({ ...newGallery, user_id: activeUser.id })
+        console.log(newGallery);
 
-        data = await GalleryService.add(newGallery);
 
-        history.push('/galleries');
-    }
+
+        if (id) {
+            data = await GalleryService.edit(id, newGallery);
+          } else {
+            data = await GalleryService.addNewGallery(newGallery);
+          }
+      
+          if (!data) {
+            alert('New gallery hasnt been created');
+            return;
+          }
+      
+          history.push('/my-galleries');
+    };
+    
 
 
 
@@ -44,13 +66,23 @@ export default function CreateGallery () {
         />
         <input
           required
-          maxLength={300}
+          maxLength={1000}
           value={newGallery.descrtiption}
           placeholder='descrtiption'
           onChange={({ target }) =>
           setNewGallery({ ...newGallery, descrtiption: target.value,  })
           }
         />
+        <input
+          required
+          maxLength={255}
+          value={newGallery.Image_Url}
+          placeholder='images'
+          onChange={({ target }) =>
+          setNewGallery({ ...newGallery, Image_Url: target.value,  })
+          }
+        />
+        
         
         <button>{id ? 'Edit' : 'Add'}</button>
         

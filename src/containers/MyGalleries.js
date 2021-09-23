@@ -41,7 +41,7 @@ export default function MyGalleries() {
                 style={{width:"300px",height:"300px"}}
                 src={gallery.images.length ? gallery.images[0].Image_Url : "there is no Image"}
               />  : "there is no Image"}
-                  
+                  {console.log(gallery.images[0].Image_Url)}
             </div>
                 
             </div>)
