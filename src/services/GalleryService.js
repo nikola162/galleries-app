@@ -37,6 +37,8 @@ class GalleryService extends HttpService {
             console.log(error);
         }
     }
+
+    
 }
 
 

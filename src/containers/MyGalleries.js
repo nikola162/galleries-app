@@ -13,9 +13,7 @@ export default function MyGalleries() {
     useEffect(() => {
         const fetchGallery = async () => {
             if (!activeUser) {
-                
-
-                return ;
+               return ;
             }
             console.log(activeUser);
             const data = await GalleryService.getMyGalleries(activeUser.id);
@@ -35,18 +33,18 @@ export default function MyGalleries() {
             <h2>My Galleries</h2>
             {galleries.map((gallery) => (
                 <div key={gallery.id}>
-                    <p>
-            <strong>Description:</strong> {gallery.descrtiption}
-            <p></p>
+                    <div>
+            <strong>Description:</strong> 
+            <p>{gallery.descrtiption}</p>
+
             {gallery.images.length ? <img
                 style={{width:"300px",height:"300px"}}
                 src={gallery.images.length ? gallery.images[0].Image_Url : "there is no Image"}
               />  : "there is no Image"}
                   
-            </p>
-                
             </div>
-            )
+                
+            </div>)
             )}
 
         </div>
