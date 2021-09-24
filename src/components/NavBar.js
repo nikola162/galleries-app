@@ -28,7 +28,7 @@ export default function NavBar() {
         <h5><Link to="/create-galleries">Create Galleries</Link></h5>
       )}
       {isAuthenticated && (
-        <button onClick={handleLogout}>Logout</button>
+      <h5 className="nav-link"> <button onClick={handleLogout}>Logout</button></h5> 
       )}
     </nav>
   );

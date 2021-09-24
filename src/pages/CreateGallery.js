@@ -1,4 +1,4 @@
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useState , useEffect } from "react";
 import {  selectActiveUser } from "../store/auth";
 import { useHistory, useParams } from 'react-router-dom';
@@ -11,7 +11,6 @@ import GalleryService from "../services/GalleryService";
 export default function CreateGallery () {
 
     const [newGallery, setNewGallery] = useState([]);
-    const [newForm, setNewForm] = useState([]);
     const history = useHistory();
     const activeUser = useSelector(selectActiveUser);
     const { id } = useParams();
@@ -43,36 +42,22 @@ export default function CreateGallery () {
           history.push('/my-galleries');
     };
     
-    const handleSubmitt = async (e) => {
-        e.preventDefault();
-
-    }
-
-        function AddnewInput (){
-
-            const newInput = (<input type="file" id="myfile" name="myfile" multiple></input>);
-
-            setNewForm([...newInput]);
-
-            return newInput;
-        }
-        useEffect(() => {
-            const fetchGallery = async () => {
-              const { id: _, createdAt, ...restData } = await GalleryService.getSingleGallery(id);
-                console.log(restData);
-                if (!restData.images[0]){
-                    setNewGallery({...restData,Image_Url:''})
-
-                }
-                if (restData.images[0]){
-                    setNewGallery({...restData,Image_Url:restData.images[0].Image_Url})
-                }
-            };
+    
+    useEffect(() => {
+      const fetchGallery = async () => {
+          const { id: _, createdAt, ...restData } = await GalleryService.getSingleGallery(id);
+          if (!restData.images[0]){
+            setNewGallery({...restData,Image_Url:''})
+          }
+          if (restData.images[0]){
+            setNewGallery({...restData,Image_Url:restData.images[0].Image_Url})
+          }
+      };
         
-            if (id) {
-                fetchGallery();
-            }
-          }, [id]);
+      if (id) {
+        fetchGallery();
+      }
+    }, [id]);
 
 
 

@@ -1,6 +1,6 @@
-import { useDispatch, useSelector } from "react-redux";
+import {  useSelector } from "react-redux";
 import { useState, useEffect } from "react";
-import { logout, selectActiveUser, selectIsAuthenticated } from "../store/auth";
+import {  selectActiveUser } from "../store/auth";
 import GalleryService from "../services/GalleryService";
 import { Link  } from "react-router-dom";
 
@@ -11,16 +11,13 @@ export default function MyGalleries() {
     
     const [galleries, setGalleries] = useState([]);
 
-    const isAuthenticated = useSelector(selectIsAuthenticated);
     const activeUser = useSelector(selectActiveUser);
     useEffect(() => {
         const fetchGallery = async () => {
             if (!activeUser) {
                return ;
             }
-            console.log(activeUser);
             const data = await GalleryService.getMyGalleries(activeUser.id);
-            console.log('My Gallery', data)
             
 
             setGalleries(data);
@@ -30,7 +27,6 @@ export default function MyGalleries() {
         fetchGallery();
     }, [activeUser])
     
-    console.log(galleries);
     return (
         <div >
             <h2>My Galleries</h2>

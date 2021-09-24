@@ -31,7 +31,6 @@ class GalleryService extends HttpService {
     getMyGalleries = async (id) => {
         try {
             const { data } = await this.client.get(`/myGalleries/${id}`);
-            console.log(data);
             return data;
         }catch(error) {
             console.log(error);
@@ -41,7 +40,7 @@ class GalleryService extends HttpService {
     addNewGallery = async (newGallery) => {
         try {
             const { data } = await this.client.post("/create-galleries",newGallery)
-            console.log( data );
+
             return data;
         }catch (error) {
             console.log(error);
@@ -50,7 +49,6 @@ class GalleryService extends HttpService {
     edit = async (id, newGallery) => {
         try {
             const { data } = await this.client.put(`/edit-galleries/${id}`,newGallery)
-            console.log(data);
             return data;
         }catch(error){
             console.log(error);
@@ -78,6 +76,8 @@ class GalleryService extends HttpService {
     deleteComment = async (deletedComment) => {
         try {
             const { data } = await this.client.delete(`/comments/${deletedComment}`)
+
+            return data;
         }catch (error){
 
         }

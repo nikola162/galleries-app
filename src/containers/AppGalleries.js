@@ -1,15 +1,12 @@
 import React, { useState } from "react";
 import { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link, useHistory  } from "react-router-dom";
+import { Link  } from "react-router-dom";
 import GalleryService from "../services/GalleryService";
 
 
 export default function AppGalleries() 
 {
     const [galleries, setGalleries] = useState([]);
-    const history = useHistory();
-
     const[totalPage, setTotalPages] = useState(1);
     const[page, setPage] =useState(1);
     const[loading, setLoading] = useState(false);
