@@ -17,6 +17,7 @@ import CreateGallery from "./pages/CreateGallery";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import ViewSingleGallery from "./containers/ViewSingleGallery";
+import ViewAuthorGalleries from "./containers/ViewAuthorGalleries";
 
 import { getActiveUser } from "./store/auth";
 import store from './store';
@@ -53,9 +54,15 @@ function App() {
           <PrivateRoute exact path="/create-galleries">
             <CreateGallery/>
           </PrivateRoute>
+          <PrivateRoute exact path="/authors/:id">
+            <ViewAuthorGalleries />
+          </PrivateRoute>
           <Route exact path="/">
             <Redirect to="/galleries" />
           </Route>
+          <Route  path="/">
+            <div>There is no page</div>          
+        </Route>
           
         </Switch>
       </Router>

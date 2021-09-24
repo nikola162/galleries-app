@@ -22,6 +22,7 @@ export default function AppGalleries()
         };
         fetchGalleries();
       }, []);
+      console.log(galleries);
     return (
         <div>
       <h2>All galleris</h2>
@@ -31,6 +32,7 @@ export default function AppGalleries()
         >
           <p>
           <Link to={`/galleries/${gallery.id}`}><strong>{gallery.title}</strong></Link>
+          <Link to={`/authors/${gallery.user.id}`}><strong>{gallery.user.first_name}</strong></Link>
           </p>
           <p>
             <strong>Description:</strong> {gallery.descrtiption}

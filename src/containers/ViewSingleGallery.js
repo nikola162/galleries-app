@@ -16,6 +16,8 @@ function ViewSingleGallery() {
     fetchGallery();
   }, [id])
 
+  
+
   return (
     <div>
       <h3>{gallery.title}</h3>
