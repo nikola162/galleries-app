@@ -25,9 +25,7 @@ export default function CreateGallery () {
         if (!activeUser) {
             return ;
          }
-        console.log(activeUser);
         setNewGallery({ ...newGallery, user_id: activeUser.id })
-        console.log(newGallery);
 
 
 
@@ -58,7 +56,23 @@ export default function CreateGallery () {
 
             return newInput;
         }
-    
+        useEffect(() => {
+            const fetchGallery = async () => {
+              const { id: _, createdAt, ...restData } = await GalleryService.getSingleGallery(id);
+                console.log(restData);
+                if (!restData.images[0]){
+                    setNewGallery({...restData,Image_Url:''})
+
+                }
+                if (restData.images[0]){
+                    setNewGallery({...restData,Image_Url:restData.images[0].Image_Url})
+                }
+            };
+        
+            if (id) {
+                fetchGallery();
+            }
+          }, [id]);
 
 
 
@@ -101,13 +115,7 @@ export default function CreateGallery () {
         <button>{id ? 'Edit' : 'Add'}</button>
         
       </form>
-      <div>
-      <form onSubmit={handleSubmitt}>
-  <input type="file" id="myfile" name="myfile" multiple></input>
-          <button onClick={AddnewInput}></button>
-
-    </form>
-      </div>
+      
       
         </div>
     );

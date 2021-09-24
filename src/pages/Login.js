@@ -17,10 +17,13 @@ export default function Login() {
   return (
     <div>
       <h2>Login</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form 
+      className="login-form"
+      onSubmit={handleSubmit}>
+        <div className="loginInput-field">
           <input
             required
+            className="loginInput"
             type="email"
             placeholder="Email"
             value={credentials.email}
@@ -29,9 +32,10 @@ export default function Login() {
             }
           />
         </div>
-        <div>
+        <div className="loginInput-field">
           <input
             required
+            className="loginInput"
             type="password"
             placeholder="Password"
             value={credentials.password}

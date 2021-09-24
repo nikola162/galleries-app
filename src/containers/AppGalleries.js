@@ -10,40 +10,52 @@ export default function AppGalleries()
     const [galleries, setGalleries] = useState([]);
     const history = useHistory();
 
-
+    const[totalPage, setTotalPages] = useState(1);
+    const[page, setPage] =useState(1);
+    const[loading, setLoading] = useState(false);
 
 
     useEffect(() => {
         const fetchGalleries = async () => {
-          const data = await GalleryService.getAll();
-    
-          setGalleries(data);
-          console.log(data);
+          setLoading(true);
+          const data = await GalleryService.getAll(page);
+          setTotalPages(data.last_page);
+          setGalleries([...galleries,...data.data]);
+          setLoading(false);
+          //setGalleries(data);
         };
         fetchGalleries();
-      }, []);
-      console.log(galleries);
+      }, [page]);
     return (
-        <div>
-      <h2>All galleris</h2>
+      <div>
+        <div className="card-container">
+      
       {galleries.map((gallery) => (
         <div
+        className="card-box"
           key={gallery.id}
         >
+          <p><Link to={`/galleries/${gallery.id}`}><strong>{gallery.title}</strong></Link></p>
+          <p><Link to={`/authors/${gallery.user.id}`}><strong>Author :{gallery.user.first_name}</strong></Link></p>
           <p>
-          <Link to={`/galleries/${gallery.id}`}><strong>{gallery.title}</strong></Link>
-          <Link to={`/authors/${gallery.user.id}`}><strong>{gallery.user.first_name}</strong></Link>
-          </p>
-          <p>
-            <strong>Description:</strong> {gallery.descrtiption}
-            <img
+          <img
                 style={{width:"300px",height:"300px"}}
                 src={gallery.images.length ? gallery.images[0].Image_Url : ""}
-              />         
+              />      
+            <strong>Description:</strong> {gallery.descrtiption}
+              
         </p>
           
         </div>
       ))}
+      
     </div>
+    {totalPage !== page && (
+        <button className="pagination-btn" onClick={() => setPage(page + 1)}>
+          {loading ? "Loading..." : "Load More"}
+        </button>
+      )}
+    </div>
+    
     )
 }

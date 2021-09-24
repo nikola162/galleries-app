@@ -2,13 +2,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { logout, selectActiveUser, selectIsAuthenticated } from "../store/auth";
 import GalleryService from "../services/GalleryService";
+import { Link  } from "react-router-dom";
+
 
 
 
 export default function MyGalleries() {
     
-    const [galleries, setGalleries] = useState([
-    ]);
+    const [galleries, setGalleries] = useState([]);
+
     const isAuthenticated = useSelector(selectIsAuthenticated);
     const activeUser = useSelector(selectActiveUser);
     useEffect(() => {
@@ -30,12 +32,18 @@ export default function MyGalleries() {
     
     console.log(galleries);
     return (
-        <div>
+        <div >
             <h2>My Galleries</h2>
+        <div className="card-container">
+            
             {galleries.map((gallery) => (
-                <div key={gallery.id}>
+                <div 
+                className="card-box"
+                key={gallery.id}>
+                    
                     <div>
-            <strong>Description:</strong> 
+            <Link to={`/galleries/${gallery.id}`}><strong>{gallery.title}</strong></Link>
+            <div><strong>Description:</strong> </div>
             <p>{gallery.descrtiption}</p>
 
             {gallery.images.length ? <img
@@ -47,6 +55,7 @@ export default function MyGalleries() {
             </div>)
             )}
 
+        </div>
         </div>
 
     );

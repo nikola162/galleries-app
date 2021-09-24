@@ -45,13 +45,16 @@ function App() {
           <GuestRoute exact path="/register">
             <Register />
           </GuestRoute>
-          <PrivateRoute exact path="/galleries/:id">
+          <Route exact path="/galleries/:id">
             <ViewSingleGallery />
-          </PrivateRoute>
+          </Route>
           <PrivateRoute exact path="/my-galleries" >
             <MyGalleries/>
           </PrivateRoute>
           <PrivateRoute exact path="/create-galleries">
+            <CreateGallery/>
+          </PrivateRoute>
+          <PrivateRoute exact path="/edit-galleries/:id">
             <CreateGallery/>
           </PrivateRoute>
           <PrivateRoute exact path="/authors/:id">

@@ -21,10 +21,13 @@ export default function Register() {
   return (
     <div>
       <h2>Register</h2>
-      <form onSubmit={handleSubmit}>
-        <div>
+      <form
+       className="login-form"
+        onSubmit={handleSubmit}>
+        <div  className="loginInput-field">
           <input
             required
+             className="loginInput"
             placeholder="First Name"
             value={userData.first_name}
             onChange={({ target }) =>
@@ -32,9 +35,10 @@ export default function Register() {
             }
           />
         </div>
-        <div>
+        <div className="loginInput-field">
           <input
             required
+             className="loginInput"
             placeholder="Last Name"
             value={userData.last_name}
             onChange={({ target }) =>
@@ -42,9 +46,10 @@ export default function Register() {
             }
           />
         </div>
-        <div>
+        <div className="loginInput-field">
           <input
             required
+             className="loginInput"
             type="email"
             placeholder="Email"
             value={userData.email}
@@ -53,9 +58,10 @@ export default function Register() {
             }
           />
         </div>
-        <div>
+        <div className="loginInput-field">
           <input
             required
+             className="loginInput"
             type="password"
             placeholder="Password"
             value={userData.password}
@@ -64,9 +70,10 @@ export default function Register() {
             }
           />
         </div>
-        <div>
+        <div className="loginInput-field">
           <input
             required
+             className="loginInput"
             type="password"
             placeholder="Confirm password"
             value={userData.password_confirmation}
