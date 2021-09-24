@@ -4,9 +4,9 @@ import HttpService from "./HttpService";
 class GalleryService extends HttpService {
 
 
-    async getAll() {
+    async getAll(page) {
         try {
-          const { data } = await this.client.get('galleries');
+          const { data } = await this.client.get(`/galleries/?page=${page}`);
     
           return data;
         } catch (error) {

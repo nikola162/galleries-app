@@ -6,16 +6,19 @@ import GalleryService from "../services/GalleryService";
 
 export default function AppGalleries() 
 {
-    const [galleries, setGalleries] = useState([]);
-    const[totalPage, setTotalPages] = useState(1);
+    const[galleries, setGalleries] = useState([]);
     const[page, setPage] =useState(1);
+    const[totalPage, setTotalPages] = useState();
+
     const[loading, setLoading] = useState(false);
 
-
+    console.log(page);
+    
     useEffect(() => {
         const fetchGalleries = async () => {
           setLoading(true);
           const data = await GalleryService.getAll(page);
+          console.log(data);
           setTotalPages(data.last_page);
           setGalleries([...galleries,...data.data]);
           setLoading(false);
@@ -23,6 +26,11 @@ export default function AppGalleries()
         };
         fetchGalleries();
       }, [page]);
+
+      const loadMore = (e) => {
+        e.preventDefault();
+    
+      }
     return (
       <div>
         <div className="card-container">
@@ -38,7 +46,7 @@ export default function AppGalleries()
           <img
                 style={{width:"300px",height:"300px"}}
                 src={gallery.images.length ? gallery.images[0].Image_Url : ""}
-              />      
+                alt=""/>      
             <strong>Description:</strong> {gallery.descrtiption}
               
         </p>
@@ -48,7 +56,7 @@ export default function AppGalleries()
       
     </div>
     {totalPage !== page && (
-        <button className="pagination-btn" onClick={() => setPage(page + 1)}>
+        <button className="pagination-btn" onClick={() => setPage((page + 1))}>
           {loading ? "Loading..." : "Load More"}
         </button>
       )}
