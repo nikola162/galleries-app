@@ -19,6 +19,7 @@ export default function AppGalleries()
         const fetchGalleries = async () => {
           setLoading(true);
           const data = await GalleryService.getAll(page);
+          console.log(data);
           setTotalPages(data.last_page);
           setGalleries([...galleries,...data.data]);
           setLoading(false);

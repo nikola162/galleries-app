@@ -3,6 +3,8 @@ import { useState, useEffect } from "react";
 import GalleryService from "../services/GalleryService";
 import {  selectActiveUser } from "../store/auth";
 import {  useSelector } from "react-redux";
+import useFormattedDate from "../components/useFormattedDate";
+
 
 import {  useHistory  } from "react-router-dom";
 
@@ -14,6 +16,7 @@ function ViewSingleGallery() {
   const { id } = useParams();
   const activeUser = useSelector(selectActiveUser);
   const history = useHistory();
+  const dateFormat = useFormattedDate(gallery.created_at);
 
   const handleSubmitt = async (e) => {
     e.preventDefault();
@@ -69,6 +72,7 @@ function ViewSingleGallery() {
     <div className="singleContainer">
       <h3>{gallery.title}</h3>
       <p>{gallery.descrtiption}</p>
+      <p>{dateFormat}</p>
 
       {activeUser && activeUser.id === gallery.user_id ? 
       <button onClick={() => history.push(`/edit-galleries/${gallery.id}`)}>Edit</button> : ''}
@@ -97,6 +101,7 @@ function ViewSingleGallery() {
                     className="comment-box" 
                     key={comment.id}>
                     <p>{comment.user.first_name+'  '+comment.user.last_name+':         '}{comment.body}</p>
+                    <p>{comment.created_at}</p>
                     {activeUser && activeUser.id === comment.user_id ?
                     <button onClick={() => handleDeleteComment(comment.id)}>Delete Comment</button> : ''}
                     </li>
