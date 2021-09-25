@@ -9,8 +9,9 @@ export default function AppGalleries()
     const[galleries, setGalleries] = useState([]);
     const[page, setPage] =useState(1);
     const[totalPage, setTotalPages] = useState();
-
     const[loading, setLoading] = useState(false);
+    const[term, setTerm] = useState("");
+
 
     console.log(page);
     
@@ -18,7 +19,6 @@ export default function AppGalleries()
         const fetchGalleries = async () => {
           setLoading(true);
           const data = await GalleryService.getAll(page);
-          console.log(data);
           setTotalPages(data.last_page);
           setGalleries([...galleries,...data.data]);
           setLoading(false);
@@ -26,13 +26,40 @@ export default function AppGalleries()
         };
         fetchGalleries();
       }, [page]);
+      
+      const handleSearch = async (term) => {
+        setPage(1);
+        console.log(term);
+        setLoading(true);
+        const data = await GalleryService.getAll(page, term);
+        setTotalPages(data.last_page)
+        setGalleries(data.data);
+        console.log(data);
+
+        setLoading(false);
+      }
 
       const loadMore = (e) => {
         e.preventDefault();
     
       }
+
+      const handleChangeSearchTerm = (e) => {
+        e.preventDefault();
+        setTerm(e.target.value);
+      }
     return (
       <div>
+        <div>
+        <input
+          type="text"
+          onChange={handleChangeSearchTerm}
+          placeholder="Search tearm"
+        />
+        <button onClick={ () => handleSearch(term)} className="btn btn-primary">Search</button>
+    </div>
+
+
         <div className="card-container">
       
       {galleries.map((gallery) => (

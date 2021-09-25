@@ -4,16 +4,29 @@ import HttpService from "./HttpService";
 class GalleryService extends HttpService {
 
 
-    async getAll(page) {
+     getAll = async (page ,term) => {
+         
+         let endpoint = `/galleries/?page=${page}`;
+
+         if(term) {
+             endpoint += `&term=${term}`
+            }
+
+        const { data } = await this.client.get(endpoint);
+        
+        return data;
         try {
           const { data } = await this.client.get(`/galleries/?page=${page}`);
     
           return data;
+
+          
         } catch (error) {
           console.log(error);
         }
     
         return [];
+        
     }
 
     async getSingleGallery(id) {

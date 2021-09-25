@@ -93,7 +93,9 @@ function ViewSingleGallery() {
           
           <ul>Comments:
                 {gallery.comments.map((comment) =>(
-                    <li key={comment.id}>
+                    <li
+                    className="comment-box" 
+                    key={comment.id}>
                     <p>{comment.user.first_name+'  '+comment.user.last_name+':         '}{comment.body}</p>
                     {activeUser && activeUser.id === comment.user_id ?
                     <button onClick={() => handleDeleteComment(comment.id)}>Delete Comment</button> : ''}
@@ -106,20 +108,22 @@ function ViewSingleGallery() {
       : "No comments"
       }
       {activeUser  ?
-      <form
-      style={{ display: 'flex', flexDirection: 'column', width: 300 }}
+      <form className="formAddComments"
+      
       onSubmit={handleSubmitt}
     >
-      <input
+      <textarea
         required
+        type="text"
         maxLength={1000}
+        className="formAddComments-textArea"
         value={newComment.body}
         placeholder='Write comment'
         onChange={({ target }) =>
         setNewComment({ ...newComment, body: target.value  })
         }
       />
-      <button>Add new Comment</button>
+      <button className="formAddComments-btn">Add new Comment</button>
       
     </form> : ''}
       

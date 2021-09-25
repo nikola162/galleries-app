@@ -65,7 +65,7 @@ export default function CreateGallery () {
         <div>
              <h2>{id ? 'Edit' : 'Add new'} </h2>
       <form
-        style={{ display: 'flex', flexDirection: 'column', width: 300 }}
+         className="login-form"
         onSubmit={handleSubmit}
       >
         <input

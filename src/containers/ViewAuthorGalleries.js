@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router";
+import { Link  } from "react-router-dom";
 import GalleryService from "../services/GalleryService";
 
 
@@ -26,21 +27,23 @@ export default function ViewAuthorGalleries() {
     return (
         <div>
             <h2>author galleries</h2>
+            <div className="card-container">
             {galleries.map((gallery) => (
-                <div key={gallery.id}>
-                    <div>
-            <strong>Description:</strong> 
-            <p>{gallery.descrtiption}</p>
-            <p>{gallery.user_id}</p>
-
-            {gallery.images.length ? <img
+        <div
+        className="card-box"
+          key={gallery.id}
+        >
+          <p><Link to={`/galleries/${gallery.id}`}><strong>{gallery.title}</strong></Link></p>
+          <p>
+          <img
                 style={{width:"300px",height:"300px"}}
-                src={gallery.images.length ? gallery.images[0].Image_Url : "there is no Image"}
-              />  : "there is no Image"}
-            </div>
-                
-            </div>)
-            )}
+                src={gallery.images.length ? gallery.images[0].Image_Url : ""}
+                alt=""/>      
+            <strong>Description:</strong> {gallery.descrtiption}    
+        </p>
+        </div>
+      ))}
+      </div>
 
         </div>
 
